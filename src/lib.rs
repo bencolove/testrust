@@ -47,4 +47,17 @@ mod tests {
         for value in v1 {
         */
     }
+
+    #[test]
+    fn test_string() {
+        // typed std::string::String
+        let v = String::from("abc");
+        // typed `str`, and `str` is a primitive type !!!
+        // is it Array[char] ?
+        // cannot use instance of `str` on stack, coz size is unknown at compile time
+        // std::marker:Sized is no implemented
+        // use &str instead
+        let s = &v[..];
+        let s1 = &v;
+    }
 }

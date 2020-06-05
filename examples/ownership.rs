@@ -29,3 +29,7 @@ Ways data interact:
         * char type
         * Tuples as long as all members are Copy
 */
+
+fn main() {
+    println!("{}", 1);
+}

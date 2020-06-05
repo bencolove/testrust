@@ -5,3 +5,6 @@ The borrowing ruls:
         b) any number immutable references
     2. references must always be valid
 */
+fn main () {
+    return ()
+}

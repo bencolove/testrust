@@ -1,4 +1,44 @@
 # Cargo
+---
+
+## Project Structure
+```
+foo  
+├── Cargo.toml  
+└── src  
+    ├── main.rs
+    └── bin
+        └── my_other_bin.rs
+└── tests
+    ├── my_test.rs
+    └── my_other_test.rs
+build.rs
+```
+1. the default binary `main.rs`,
+2. and a second one `my_other_bin` by file `src/bin/my_other_bin.rs`. Can be built/run by   
+`$ cargo build/run --bin my_other_bin`
+3. `tests` are located in `/tests`, run by  
+`$ cargo test`
+4. `build.rs` default build script or otherwise designated in `Cargo.toml.[package].build` 
+
+## Dependencies
+in `Cargo.toml`
+```
+[package]
+...
+
+[dependencies]
+clap = "^2.27.1"
+rand = { git = "https://github.com/rust-lang-nursery/rand" }
+bar = { path = "../bar" }
+```
+
+### Use other caret dependencies
+When define an entry in `Cargo.toml`'s `[dependencies]`, an dependent caret has to be:
+1. imported first as `extern create clap`
+2. used with fully-quailified path or shorten by `use caret::path::module`
+
+---
 
 ## Profiles
 By design, `cargo` has two profiles, namely:

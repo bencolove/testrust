@@ -73,6 +73,43 @@ match file.write_all(LOREM_IPSUM.as_bytes()) {
 }
 ```
 
+examples:
+```rust
+`mkdir -p a/b/c`
+fs::create_dir_all("a/c/d").unwrap_or_else(|why| {
+    println!("! {:?}", why.kind());
+});
+
+`ls -a`
+// fs::read_dir(&path) -> io::Result<Vec<Path>>
+match fs::read_dir("a") {
+    Err(why) => println!("! {:?}", why.kind()),
+    Ok(paths) => for path in paths {
+        println!("> {:?}", path.unwrap().path());
+    },
+}
+`rm a/c/e.txt`
+// Remove a file, returns `io::Result<()>`
+fs::remove_file("a/c/e.txt").unwrap_or_else(|why| {
+    println!("! {:?}", why.kind());
+});
+
+`rmdir a/c/d`
+// Remove an empty directory, returns `io::Result<()>`
+fs::remove_dir("a/c/d").unwrap_or_else(|why| {
+    println!("! {:?}", why.kind());
+});
+
+// unix only
+`ln -s ../b.txt a/c/b.txt`
+// Create a symbolic link, returns `io::Result<()>`
+if cfg!(target_family = "unix") {
+    unix::fs::symlink("../b.txt", "a/c/b.txt").unwrap_or_else(|why| {
+    println!("! {:?}", why.kind());
+    });
+}
+```
+
 ```rust
 use std::fs::File;
 use std::io::prelude::*;

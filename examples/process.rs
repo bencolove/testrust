@@ -25,8 +25,15 @@ fn run_with_output(command: &str) -> Result<String> {
     println!("command={}, args={:?}", file, args);
 
     // run command and wait for output
+    // `output()` -> `Result`
     let output = Command::new(file).args(args).output();
     // println!("{:?}", output);
-    output?.stdout
+    // `?` `unwrap()` if `OK` or return `Result` if `Err`
+    let success = output?.status.success();
+    println!("{}", success);
 
+    
+
+    // return Ok(String::from("abc"));
+    return Ok("abc".to_owned());
 }
